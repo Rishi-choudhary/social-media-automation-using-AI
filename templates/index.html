@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Auto-Publisher - Your Social Media, Automated with AI</title>
+    <meta name="description" content="Generate captions, hashtags, and stunning visuals with one click using open-source AI. Built for hackathon.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home">
+                <i class="fas fa-robot me-2"></i>ONE SOCIAL
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tech-stack">Tech Stack</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary ms-2" href="{{ url_for('workspace') }}">
+                            <i class="fas fa-magic me-1"></i>AI Workspace
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg">
+            <img src="{{ url_for('static', filename='images/ai-bg.svg') }}" alt="AI Background" class="hero-svg">
+        </div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="hero-title mb-4 animate-fade-in">
+                            ONE SOCIAL: Your Social Media, <span class="text-gradient">Automated with AI</span>
+                        </h1>
+                        <p class="hero-subtitle mb-5 animate-fade-in-delay">
+                            Generate captions, hashtags, and stunning visuals with one click using open-source AI. 
+                            Built for creators, powered by innovation.
+                        </p>
+                        <div class="hero-buttons animate-fade-in-delay-2">
+                            <a href="{{ url_for('workspace') }}" class="btn btn-primary btn-lg me-3">
+                                <i class="fas fa-magic me-2"></i>Start Creating
+                            </a>
+                            <a href="https://github.com/ai-auto-publisher" class="btn btn-outline-light btn-lg" target="_blank">
+                                <i class="fab fa-github me-2"></i>View Code
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-visual animate-float">
+                        <div class="ai-mockup-container">
+                            <div class="mockup-screen">
+                                <div class="mockup-header">
+                                    <div class="mockup-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                    <div class="mockup-title">AI Auto-Publisher</div>
+                                </div>
+                                <div class="mockup-content">
+                                    <div class="input-section">
+                                        <div class="input-field">
+                                            <label>Theme</label>
+                                            <div class="input-value">Tech Innovation</div>
+                                        </div>
+                                        <div class="input-field">
+                                            <label>Tone</label>
+                                            <div class="input-value">Professional</div>
+                                        </div>
+                                    </div>
+                                    <div class="ai-processing">
+                                        <i class="fas fa-robot"></i>
+                                        <span>AI Generating Content...</span>
+                                    </div>
+                                    <div class="generated-content">
+                                        <div class="caption-preview">
+                                            "🚀 Exciting tech innovation ahead! #TechTrends #Innovation"
+                                        </div>
+                                        <div class="image-placeholder">
+                                            <i class="fas fa-image"></i>
+                                            <span>AI Generated Image</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">How It Works</h2>
+                    <p class="section-subtitle">Three simple steps to automated social media success</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="step-card text-center">
+                        <div class="step-icon">
+                            <i class="fas fa-keyboard"></i>
+                            <span class="step-number">1</span>
+                        </div>
+                        <h4>Input Your Theme & Tone</h4>
+                        <p>Choose your topic and preferred writing style. Our AI understands context and brand voice.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="step-card text-center">
+                        <div class="step-icon">
+                            <i class="fas fa-magic"></i>
+                            <span class="step-number">2</span>
+                        </div>
+                        <h4>AI Generates Post</h4>
+                        <p>Open-source LLM writes engaging captions; Stable Diffusion creates stunning visuals automatically.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="step-card text-center">
+                        <div class="step-icon">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="step-number">3</span>
+                        </div>
+                        <h4>Publish in One Click</h4>
+                        <p>Instantly schedule or post to Instagram, Facebook, or LinkedIn via official APIs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech-stack" class="section-padding bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title text-white">Tech Stack</h2>
+                    <p class="section-subtitle text-light">Built with cutting-edge technologies</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fab fa-react"></i>
+                        </div>
+                        <h5>Frontend</h5>
+                        <p>React + Tailwind CSS</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <h5>Backend</h5>
+                        <p>Flask (Python)</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h5>Text AI</h5>
+                        <p>LLaMA / Mistral via Ollama</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h5>Image AI</h5>
+                        <p>Stable Diffusion</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h5>Database</h5>
+                        <p>Firebase / Supabase</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h5>Deployment</h5>
+                        <p>Render / Heroku</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-share-nodes"></i>
+                        </div>
+                        <h5>Social APIs</h5>
+                        <p>Meta Graph API, LinkedIn</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h5>Open Source</h5>
+                        <p>100% Free Tools</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Key Features</h2>
+                    <p class="section-subtitle">Everything you need for automated social media success</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h4>Zero Cost</h4>
+                        <p>Uses only free and open-source tools. No subscription fees, no hidden costs.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h4>Fully Customizable</h4>
+                        <p>Tailor captions, graphics, and posting schedules to match your brand perfectly.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h4>Real Social APIs</h4>
+                        <p>Direct integration with Instagram, Facebook, and LinkedIn official APIs.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h4>Smart Scheduling</h4>
+                        <p>AI-powered optimal posting times with comprehensive analytics dashboard.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Creator Focused</h4>
+                        <p>Built specifically for creators and small businesses who need efficiency.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>Performance Analytics</h4>
+                        <p>Track engagement, reach, and performance across all platforms in real-time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Started Section -->
+    <section class="section-padding bg-gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title text-white">Ready to Get Started?</h2>
+                    <p class="section-subtitle text-light">Create your first AI-powered social media post</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="cta-card">
+                        <div class="cta-icon">
+                            <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+                        </div>
+                        <h4 class="text-white mb-3">Launch Your AI Workspace</h4>
+                        <p class="text-light mb-4">
+                            Access the full AI Auto-Publisher experience with advanced content generation, 
+                            multi-platform support, and analytics tracking.
+                        </p>
+                        <a href="{{ url_for('workspace') }}" class="btn btn-light btn-lg">
+                            <i class="fas fa-magic me-2"></i>Open AI Workspace
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Performance Analytics</h2>
+                    <p class="section-subtitle">Track your social media success</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="analytics-dashboard">
+                        <div class="dashboard-header">
+                            <h4><i class="fas fa-chart-line me-2"></i>Analytics Dashboard</h4>
+                            <div class="date-range">Last 30 Days</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                    <div class="metric-value">125.4K</div>
+                                    <div class="metric-label">Total Reach</div>
+                                    <div class="metric-change positive">
+                                        <i class="fas fa-arrow-up"></i> +12.5%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                    <div class="metric-value">8.2K</div>
+                                    <div class="metric-label">Engagement</div>
+                                    <div class="metric-change positive">
+                                        <i class="fas fa-arrow-up"></i> +18.3%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-share"></i>
+                                    </div>
+                                    <div class="metric-value">1.5K</div>
+                                    <div class="metric-label">Shares</div>
+                                    <div class="metric-change positive">
+                                        <i class="fas fa-arrow-up"></i> +25.7%
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="metric-card">
+                                    <div class="metric-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="metric-value">+450</div>
+                                    <div class="metric-label">New Followers</div>
+                                    <div class="metric-change positive">
+                                        <i class="fas fa-arrow-up"></i> +8.9%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hackathon Section -->
+    <section id="team" class="section-padding bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title text-white">Built for Hackathon</h2>
+                    <p class="section-subtitle text-light">Developed in 24 hours for IEEE RAS MUJ Pixel Palette Hackathon</p>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8">
+                    <div class="hackathon-badge">
+                        <div class="badge-content">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <h4>IEEE RAS MUJ Pixel Palette Hackathon</h4>
+                                <p>24-Hour Innovation Challenge • June 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h3 class="text-white mb-4">Meet the Team</h3>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5>Alex Chen</h5>
+                        <p>Full-Stack Developer</p>
+                        <div class="team-links">
+                            <a href="#" class="team-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="team-link"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5>Sarah Kumar</h5>
+                        <p>AI/ML Engineer</p>
+                        <div class="team-links">
+                            <a href="#" class="team-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="team-link"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5>Mike Johnson</h5>
+                        <p>UI/UX Designer</p>
+                        <div class="team-links">
+                            <a href="#" class="team-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="team-link"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="team-card">
+                        <div class="team-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h5>Emma Wilson</h5>
+                        <p>Product Manager</p>
+                        <div class="team-links">
+                            <a href="#" class="team-link"><i class="fab fa-github"></i></a>
+                            <a href="#" class="team-link"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="footer-brand">
+                        <i class="fas fa-robot me-2"></i>ONE SOCIAL
+                    </div>
+                    <p class="footer-text">Automating social media with the power of open-source AI</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="footer-links">
+                        <a href="https://github.com/ai-auto-publisher" class="footer-link" target="_blank">
+                            <i class="fab fa-github me-1"></i>GitHub Repository
+                        </a>
+                        <a href="mailto:team@ai-auto-publisher.com" class="footer-link">
+                            <i class="fas fa-envelope me-1"></i>Contact
+                        </a>
+                    </div>
+                    <p class="footer-text mt-3">Built with ❤️ by Team AI Innovators</p>
+                </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="footer-copyright">
+                        © 2025 ONE SOCIAL. Made for IEEE RAS MUJ Pixel Palette Hackathon.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
