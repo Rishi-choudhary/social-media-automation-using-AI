@@ -1,0 +1,156 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background geometric shapes -->
+  <circle cx="200" cy="150" r="80" fill="url(#grad1)" opacity="0.6">
+    <animateTransform attributeName="transform" type="rotate" values="0 200 150;360 200 150" dur="20s" repeatCount="indefinite"/>
+  </circle>
+  
+  <polygon points="800,100 850,50 900,100 850,150" fill="url(#grad2)" opacity="0.5">
+    <animateTransform attributeName="transform" type="rotate" values="0 850 100;360 850 100" dur="15s" repeatCount="indefinite"/>
+  </polygon>
+  
+  <rect x="100" y="400" width="120" height="120" rx="20" fill="url(#grad1)" opacity="0.4" transform="rotate(45 160 460)">
+    <animateTransform attributeName="transform" type="rotate" values="45 160 460;405 160 460" dur="25s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Neural network nodes -->
+  <g filter="url(#glow)">
+    <!-- Layer 1 -->
+    <circle cx="300" cy="200" r="8" fill="#6366f1" opacity="0.8">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="280" r="8" fill="#6366f1" opacity="0.6">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="360" r="8" fill="#6366f1" opacity="0.7">
+      <animate attributeName="opacity" values="0.5;0.9;0.5" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Layer 2 -->
+    <circle cx="450" cy="180" r="8" fill="#8b5cf6" opacity="0.6">
+      <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="240" r="8" fill="#8b5cf6" opacity="0.8">
+      <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="300" r="8" fill="#8b5cf6" opacity="0.5">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="360" r="8" fill="#8b5cf6" opacity="0.7">
+      <animate attributeName="opacity" values="0.7;0.5;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Layer 3 -->
+    <circle cx="600" cy="220" r="8" fill="#06b6d4" opacity="0.6">
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="600" cy="320" r="8" fill="#06b6d4" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.5;0.8" dur="4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke-width="2" opacity="0.3">
+    <line x1="300" y1="200" x2="450" y2="180" stroke="url(#grad2)">
+      <animate attributeName="stroke-opacity" values="0.1;0.6;0.1" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <line x1="300" y1="200" x2="450" y2="240" stroke="url(#grad2)">
+      <animate attributeName="stroke-opacity" values="0.6;0.1;0.6" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <line x1="300" y1="280" x2="450" y2="240" stroke="url(#grad2)">
+      <animate attributeName="stroke-opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="300" y1="280" x2="450" y2="300" stroke="url(#grad2)">
+      <animate attributeName="stroke-opacity" values="0.7;0.3;0.7" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="300" y1="360" x2="450" y2="300" stroke="url(#grad2)">
+      <animate attributeName="stroke-opacity" values="0.2;0.8;0.2" dur="4s" repeatCount="indefinite"/>
+    </line>
+    <line x1="300" y1="360" x2="450" y2="360" stroke="url(#grad2)">
+      <animate attributeName="stroke-opacity" values="0.8;0.2;0.8" dur="4s" repeatCount="indefinite"/>
+    </line>
+    
+    <line x1="450" y1="180" x2="600" y2="220" stroke="url(#grad1)">
+      <animate attributeName="stroke-opacity" values="0.4;0.9;0.4" dur="3.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="450" y1="240" x2="600" y2="220" stroke="url(#grad1)">
+      <animate attributeName="stroke-opacity" values="0.9;0.4;0.9" dur="3.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="450" y1="300" x2="600" y2="320" stroke="url(#grad1)">
+      <animate attributeName="stroke-opacity" values="0.3;0.8;0.3" dur="2.8s" repeatCount="indefinite"/>
+    </line>
+    <line x1="450" y1="360" x2="600" y2="320" stroke="url(#grad1)">
+      <animate attributeName="stroke-opacity" values="0.8;0.3;0.8" dur="2.8s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  
+  <!-- Floating particles -->
+  <g>
+    <circle cx="150" cy="300" r="3" fill="#6366f1" opacity="0.4">
+      <animateTransform attributeName="transform" type="translate" values="0,0;50,-30;0,0" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="750" cy="200" r="4" fill="#8b5cf6" opacity="0.5">
+      <animateTransform attributeName="transform" type="translate" values="0,0;-40,60;0,0" dur="10s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.9;0.5" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="950" cy="350" r="2" fill="#06b6d4" opacity="0.6">
+      <animateTransform attributeName="transform" type="translate" values="0,0;30,-50;0,0" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.3;0.6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Data flow visualization -->
+  <g>
+    <path d="M 50 500 Q 200 450 350 500 T 650 480" stroke="url(#grad2)" stroke-width="3" fill="none" opacity="0.4">
+      <animate attributeName="stroke-dasharray" values="0,1000;1000,0" dur="5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 100 600 Q 300 550 500 580 T 900 560" stroke="url(#grad1)" stroke-width="2" fill="none" opacity="0.3">
+      <animate attributeName="stroke-dasharray" values="0,800;800,0" dur="7s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Abstract tech elements -->
+  <g opacity="0.2">
+    <rect x="700" y="450" width="60" height="4" fill="#6366f1" rx="2">
+      <animate attributeName="width" values="60;120;60" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="720" y="470" width="40" height="4" fill="#8b5cf6" rx="2">
+      <animate attributeName="width" values="40;80;40" dur="3s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="710" y="490" width="50" height="4" fill="#06b6d4" rx="2">
+      <animate attributeName="width" values="50;100;50" dur="5s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Circuit board pattern -->
+  <g stroke="#6366f1" stroke-width="1" fill="none" opacity="0.15">
+    <path d="M 800 600 L 850 600 L 850 650 L 900 650">
+      <animate attributeName="stroke-opacity" values="0.1;0.4;0.1" dur="6s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 820 580 L 820 620 L 870 620 L 870 580">
+      <animate attributeName="stroke-opacity" values="0.4;0.1;0.4" dur="4s" repeatCount="indefinite"/>
+    </path>
+    <circle cx="850" cy="600" r="5" fill="#6366f1" opacity="0.3">
+      <animate attributeName="opacity" values="0.3;0.7;0.3" dur="5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

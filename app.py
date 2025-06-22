@@ -3,7 +3,7 @@ import jwt
 import uuid
 from functools import wraps
 from urllib.parse import urlencode
-
+import re
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
@@ -50,7 +50,7 @@ with app.app_context():
         id = db.Column(db.Integer, primary_key=True)
         username = db.Column(db.String(80), unique=True, nullable=False)
         email = db.Column(db.String(120), unique=True, nullable=False)
-        created_at = db.Column(db.DateTime, default=datetime.utcnow)
+        created_at = db.Column(db.DateTime, default=datetime.now)
         is_active = db.Column(db.Boolean, default=True)
         
         def __repr__(self):
@@ -64,7 +64,7 @@ with app.app_context():
         caption = db.Column(db.Text, nullable=False)
         hashtags = db.Column(db.String(500))
         status = db.Column(db.String(20), default='generated')
-        created_at = db.Column(db.DateTime, default=datetime.utcnow)
+        created_at = db.Column(db.DateTime, default=datetime.now)
         likes = db.Column(db.Integer, default=0)
         comments = db.Column(db.Integer, default=0)
         shares = db.Column(db.Integer, default=0)
@@ -87,7 +87,7 @@ with app.app_context():
 
 def configure_ai():
     """Configure AI services when API keys are available"""
-    gemini_key = os.environ.get('GEMINI_API_KEY')
+    gemini_key = "AIzaSyCC6pSLGsaZqPRyM4y5b42LP1jy7kCFI-U"  # Replace with your actual Gemini API ke
     if gemini_key:
         genai.configure(api_key=gemini_key)
         return True
@@ -128,20 +128,32 @@ def generate_content_with_ai(theme, tone, platforms, context="", length="medium"
         }}
         """
         
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         response = model.generate_content(prompt)
+        print("response:", response.text)
+     
         
        
         try:
-            content = json.loads(response.text)
+        # Remove code fences (```json ... ```)
+            cleaned_text = re.sub(r"^```json|```$", "", response.text.strip(), flags=re.MULTILINE).strip()
+            content = json.loads(cleaned_text)
+            print("Parsed content:", content)
             return content
+
         except json.JSONDecodeError:
+<<<<<<< HEAD
             
+=======
+           
+        # If JSON parsing fails, extract content manually
+>>>>>>> 5efcdb2 (adding gemini key)
             text = response.text
+            print(f"Failed to parse JSON response: {text}")
             return {
-                "caption": f"Generated content about {theme} with {tone} tone",
-                "hashtags": f"#{theme.replace(' ', '')} #AI #AutoPublisher",
-                "image_prompt": f"Professional image related to {theme}"
+            "caption": f"Generated content about {theme} with {tone} tone",
+            "hashtags": f"#{theme.replace(' ', '')} #AI #AutoPublisher",
+            "image_prompt": f"Professional image related to {theme}"
             }
             
     except Exception as e:
@@ -223,6 +235,7 @@ def generate_post():
         platforms = data.get('platforms', ['instagram'])  # Now accepts multiple platforms
         context = data.get('context', '')
         length = data.get('length', 'medium')
+        print(f"Generating post with theme: {theme}, tone: {tone}, platforms: {platforms}, context: {context}, length: {length}")   
         
         
         if isinstance(platforms, str):
@@ -230,9 +243,10 @@ def generate_post():
         
         
         ai_content = generate_content_with_ai(theme, tone, platforms, context, length)
+        print(f"AI content generated: {ai_content}")
         
         caption = ai_content.get('caption', f"Generated content about {theme}")
-        hashtags = ai_content.get('hashtags', f"#{theme.replace(' ', '')} #AI #AutoPublisher")
+        hashtags = ai_content.get('hashtags', f"#{theme.replace(' ', '')} #AI #ONESOCIAL")
         image_prompt = ai_content.get('image_prompt', f"Professional image related to {theme}")
         
         

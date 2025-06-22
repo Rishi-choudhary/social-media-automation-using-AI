@@ -74,6 +74,7 @@ async function generateContent() {
         });
         
         const data = await response.json();
+        console.log('Generated content:', data);
         
         if (data.success) {
             displayGeneratedContent(data);
