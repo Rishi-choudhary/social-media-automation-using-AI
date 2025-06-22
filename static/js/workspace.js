@@ -11,7 +11,7 @@ function initWorkspace() {
     setupAutoSave();
 }
 
-// Platform selector functionality - now supports multiple selection
+
 function initPlatformSelector() {
     const platformCheckboxes = document.querySelectorAll('.platform-checkbox');
     
@@ -28,7 +28,7 @@ function getSelectedPlatforms() {
     return Array.from(checkboxes).map(cb => cb.id.replace('platform-', ''));
 }
 
-// Generate content functionality
+
 function initGenerateButton() {
     const generateBtn = document.getElementById('generateBtn');
     const clearBtn = document.getElementById('clearBtn');
@@ -54,7 +54,7 @@ async function generateContent() {
         return;
     }
     
-    // Show processing modal
+    
     const processingModal = new bootstrap.Modal(document.getElementById('processingModal'));
     processingModal.show();
     
@@ -78,7 +78,7 @@ async function generateContent() {
         if (data.success) {
             displayGeneratedContent(data);
             showAlert('Content generated successfully!', 'success');
-            loadPostsHistory(); // Refresh history
+            loadPostsHistory(); 
         } else {
             showAlert('Failed to generate content. Please try again.', 'error');
         }
@@ -94,18 +94,18 @@ function displayGeneratedContent(data) {
     const preview = document.getElementById('postPreview');
     const actions = document.querySelector('.preview-actions');
     
-    // Use the first platform for preview styling, or instagram as default
+    
     const previewPlatform = data.platforms && data.platforms.length > 0 ? data.platforms[0] : 'instagram';
     
     preview.innerHTML = createPostPreview(data, previewPlatform);
     actions.style.display = 'block';
     
-    // Show AI error if present
+    
     if (data.ai_error) {
         showAlert(`AI Generation: ${data.ai_error}`, 'warning');
     }
     
-    // Store current post data for actions
+    
     preview.dataset.postData = JSON.stringify(data);
 }
 
@@ -163,11 +163,11 @@ function clearForm() {
     document.getElementById('toneSelect').value = 'professional';
     document.getElementById('lengthSelect').value = 'medium';
     
-    // Reset platform to Instagram
+    
     document.querySelectorAll('.platform-option').forEach(opt => opt.classList.remove('active'));
     document.querySelector('.platform-option[data-platform="instagram"]').classList.add('active');
     
-    // Clear preview
+    
     const preview = document.getElementById('postPreview');
     preview.innerHTML = `
         <div class="preview-placeholder">
@@ -179,7 +179,7 @@ function clearForm() {
     document.querySelector('.preview-actions').style.display = 'none';
 }
 
-// Form actions
+
 function initFormActions() {
     const saveBtn = document.getElementById('saveBtn');
     const editBtn = document.getElementById('editBtn');
@@ -206,7 +206,7 @@ function editPost() {
     showAlert('Edit functionality coming soon!', 'info');
 }
 
-// Load posts history
+
 async function loadPostsHistory() {
     const historyContainer = document.getElementById('postsHistory');
     
@@ -239,7 +239,7 @@ async function loadPostsHistory() {
 function createPostCard(post) {
     const date = new Date(post.created_at).toLocaleDateString();
     
-    // Handle multiple platforms
+    
     const platforms = Array.isArray(post.platforms) ? post.platforms : (post.platforms ? post.platforms.split(',') : []);
     const platformIcons = platforms.map(platform => {
         const iconMap = {
@@ -297,15 +297,15 @@ function createPostCard(post) {
 
 function reloadPost(postId) {
     showAlert('Loading post...', 'info');
-    // Implementation for loading specific post
+    
 }
 
 function duplicatePost(postId) {
     showAlert('Duplicating post...', 'info');
-    // Implementation for duplicating post
+    
 }
 
-// Upload post to social media platforms
+
 async function uploadPost(postId) {
     const uploadBtn = event.target.closest('.upload-btn');
     const originalContent = uploadBtn.innerHTML;
@@ -330,7 +330,7 @@ async function uploadPost(postId) {
             uploadBtn.innerHTML = '<i class="fas fa-check"></i> Published';
             showAlert(data.message, 'success');
             
-            // Refresh posts history to show updated status
+            
             setTimeout(() => {
                 loadPostsHistory();
             }, 1000);
@@ -346,7 +346,7 @@ async function uploadPost(postId) {
     }
 }
 
-// Auto-save functionality
+
 function setupAutoSave() {
     const inputs = ['themeInput', 'contextInput'];
     
@@ -359,7 +359,7 @@ function setupAutoSave() {
         }
     });
     
-    // Load saved state
+    
     loadFormState();
 }
 
@@ -397,9 +397,9 @@ function loadFormState() {
     }
 }
 
-// Utility functions
+
 function updatePreviewPlatform(platform) {
-    // Update preview styling based on selected platform
+    
     const preview = document.getElementById('postPreview');
     preview.className = `post-preview ${platform}-preview`;
 }
