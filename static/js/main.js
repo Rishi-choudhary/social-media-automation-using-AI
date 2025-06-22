@@ -1,14 +1,14 @@
-// Main JavaScript for AI Auto-Publisher Landing Page
+
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all interactive features
+    
     initSmoothScrolling();
     initNavbarEffects();
     initAnimations();
     initDemoInteractions();
 });
 
-// Smooth scrolling for navigation links
+
 function initSmoothScrolling() {
     const links = document.querySelectorAll('a[href^="#"]');
     
@@ -32,7 +32,7 @@ function initSmoothScrolling() {
     });
 }
 
-// Navbar effects on scroll
+
 function initNavbarEffects() {
     const navbar = document.querySelector('.navbar');
     
@@ -47,9 +47,9 @@ function initNavbarEffects() {
     });
 }
 
-// Initialize scroll-triggered animations
+
 function initAnimations() {
-    // Intersection Observer for fade-in animations
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -63,7 +63,7 @@ function initAnimations() {
         });
     }, observerOptions);
     
-    // Observe elements that should animate on scroll
+    
     const animatedElements = document.querySelectorAll(
         '.step-card, .tech-card, .feature-card, .team-card, .metric-card'
     );
@@ -72,11 +72,11 @@ function initAnimations() {
         observer.observe(el);
     });
     
-    // Counter animation for metrics
+    
     initCounterAnimations();
 }
 
-// Counter animations for metrics
+
 function initCounterAnimations() {
     const counters = document.querySelectorAll('.metric-value');
     
@@ -125,9 +125,9 @@ function animateCounter(element) {
     }, stepTime);
 }
 
-// Demo section interactions
+
 function initDemoInteractions() {
-    // Platform selector in demo
+    
     const platformIcons = document.querySelectorAll('.platform-icons i');
     
     platformIcons.forEach(icon => {
@@ -135,13 +135,13 @@ function initDemoInteractions() {
             platformIcons.forEach(i => i.classList.remove('active'));
             this.classList.add('active');
             
-            // Get platform type from class list
+            
             const platformClass = Array.from(this.classList).find(cls => cls.includes('fa-'));
             updateSocialPreview(platformClass);
         });
     });
     
-    // Theme input interaction
+    
     const themeInput = document.querySelector('.demo-input input[type="text"]');
     if (themeInput) {
         themeInput.removeAttribute('readonly');
@@ -150,20 +150,17 @@ function initDemoInteractions() {
         });
     }
     
-    // Simulate AI processing
+    
     simulateAIProcessing();
     
-    // Add hover effects to cards
     addCardHoverEffects();
     
-    // Add CTA button interactions
     initCTAButtons();
-    
-    // Initialize database interactions
+   
     initDatabaseFeatures();
 }
 
-// Update demo content based on theme input
+
 function updateDemoContent(theme) {
     const caption = document.querySelector('.post-caption');
     const processingText = document.querySelector('.processing-indicator p');
@@ -172,7 +169,7 @@ function updateDemoContent(theme) {
         processingText.textContent = `Analyzing "${theme}" theme...`;
     }
     
-    // Update caption based on theme
+ 
     const themeMapping = {
         'tech innovation': '🚀 The future of technology is here! Embracing innovation and pushing boundaries in the digital age. #TechInnovation #AI #Future #DigitalTransformation',
         'sustainability': '🌱 Building a greener tomorrow through sustainable innovation. Join us in creating positive environmental impact. #Sustainability #GreenTech #EcoFriendly #ClimateAction',
@@ -189,7 +186,7 @@ function updateDemoContent(theme) {
     }
 }
 
-// Initialize CTA button interactions
+
 function initCTAButtons() {
     const demoButton = document.querySelector('a[href="#demo"]');
     const githubButton = document.querySelector('a[href*="github"]');
@@ -211,15 +208,15 @@ function initCTAButtons() {
     }
 }
 
-// Initialize database-related features
+
 function initDatabaseFeatures() {
-    // Add generate post button to demo
+    
     addGenerateButton();
     
-    // Load analytics from database
+   
     loadAnalytics();
     
-    // Auto-save demo inputs to database
+    
     setupAutoSave();
 }
 
@@ -260,17 +257,17 @@ async function generateAndSavePost() {
         const data = await response.json();
         
         if (data.success) {
-            // Update the preview with the generated content
+            
             const caption = document.querySelector('.post-caption');
             if (caption) {
                 const username = caption.querySelector('strong')?.textContent || 'ai_auto_publisher';
                 caption.innerHTML = `<strong>${username}</strong> ${data.caption} ${data.hashtags}`;
             }
             
-            // Show success notification
+            
             showNotification('Post generated and saved to database!', 'success');
             
-            // Refresh analytics
+            
             loadAnalytics();
         } else {
             showNotification('Failed to generate post', 'error');
@@ -286,13 +283,13 @@ async function loadAnalytics() {
         const response = await fetch('/api/analytics');
         const data = await response.json();
         
-        // Update metric cards with real data
+        
         updateMetricCard('Total Posts', data.total_posts);
         updateMetricCard('Published Posts', data.published_posts);
         updateMetricCard('Total Reach', data.reach);
         updateMetricCard('New Followers', data.new_followers);
         
-        // Update platform distribution if available
+        
         if (data.platform_stats) {
             updatePlatformStats(data.platform_stats);
         }
@@ -325,7 +322,7 @@ function formatNumber(num) {
 }
 
 function updatePlatformStats(stats) {
-    // Add platform distribution info to tech stack or create new section
+    
     console.log('Platform stats:', stats);
 }
 
@@ -336,12 +333,12 @@ function setupAutoSave() {
         themeInput.addEventListener('input', function() {
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(() => {
-                // Auto-save theme preferences (could be expanded)
+                
                 localStorage.setItem('lastTheme', this.value);
             }, 1000);
         });
         
-        // Load saved theme
+        
         const savedTheme = localStorage.getItem('lastTheme');
         if (savedTheme) {
             themeInput.value = savedTheme;
@@ -350,7 +347,7 @@ function setupAutoSave() {
 }
 
 function showNotification(message, type = 'info') {
-    // Create notification element
+    
     const notification = document.createElement('div');
     notification.className = `alert alert-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info'} alert-dismissible fade show position-fixed`;
     notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
@@ -361,7 +358,7 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(notification);
     
-    // Auto-remove after 3 seconds
+    
     setTimeout(() => {
         if (notification.parentNode) {
             notification.remove();
@@ -372,10 +369,10 @@ function showNotification(message, type = 'info') {
 function updateSocialPreview(platform) {
     const preview = document.querySelector('.social-preview');
     
-    // Remove existing platform classes
+    
     preview.classList.remove('instagram-preview', 'facebook-preview', 'linkedin-preview');
     
-    // Add new platform class
+    
     if (platform.includes('instagram')) {
         preview.classList.add('instagram-preview');
     } else if (platform.includes('facebook')) {
@@ -384,7 +381,7 @@ function updateSocialPreview(platform) {
         preview.classList.add('linkedin-preview');
     }
     
-    // Update content based on platform
+    
     updatePreviewContent(platform);
 }
 
@@ -433,11 +430,11 @@ function simulateAIProcessing() {
             }, index * 1000);
         });
         
-        // Repeat animation every 6 seconds
+        
         setTimeout(animateProcessing, 6000);
     }
     
-    // Start animation after page load
+    
     setTimeout(animateProcessing, 2000);
 }
 
@@ -455,14 +452,14 @@ function addCardHoverEffects() {
     });
 }
 
-// Utility function to add CSS classes with animation
+
 function addAnimatedClass(element, className, delay = 0) {
     setTimeout(() => {
         element.classList.add(className);
     }, delay);
 }
 
-// Initialize parallax effect for hero section
+
 function initParallaxEffect() {
     const heroSection = document.querySelector('.hero-section');
     const heroBackground = document.querySelector('.hero-bg');
@@ -477,7 +474,7 @@ function initParallaxEffect() {
     });
 }
 
-// Initialize typing effect for hero title
+
 function initTypingEffect() {
     const heroTitle = document.querySelector('.hero-title');
     const text = heroTitle.textContent;
@@ -496,11 +493,11 @@ function initTypingEffect() {
         }
     }
     
-    // Start typing effect after a delay
+    
     setTimeout(typeWriter, 1000);
 }
 
-// Enhanced scroll animations
+
 function initEnhancedAnimations() {
     const elements = document.querySelectorAll('[data-animate]');
     
@@ -519,7 +516,7 @@ function initEnhancedAnimations() {
     elements.forEach(el => observer.observe(el));
 }
 
-// Add loading animation
+
 function showPageLoadAnimation() {
     const loader = document.createElement('div');
     loader.className = 'page-loader';
@@ -535,7 +532,7 @@ function showPageLoadAnimation() {
     
     document.body.appendChild(loader);
     
-    // Simulate loading progress
+    
     let progress = 0;
     const progressBar = loader.querySelector('.loader-progress');
     
@@ -556,19 +553,19 @@ function showPageLoadAnimation() {
     }, 200);
 }
 
-// Initialize everything when page loads
+
 window.addEventListener('load', function() {
-    // Remove any existing loaders
+    
     const existingLoader = document.querySelector('.page-loader');
     if (existingLoader) {
         existingLoader.remove();
     }
     
-    // Initialize enhanced features
+    
     initParallaxEffect();
     initEnhancedAnimations();
     
-    // Add CSS for additional animations
+    
     addCustomAnimationStyles();
 });
 
