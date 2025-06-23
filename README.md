@@ -1,4 +1,4 @@
-Sure Rishi! Below is the pure .md code block — ready to be copy-pasted into your README.md file. No extra explanation, only code, all markdown syntax — exactly how it will appear on GitHub:
+
 
 # 🖼️ Flask AI Image Generator
 
