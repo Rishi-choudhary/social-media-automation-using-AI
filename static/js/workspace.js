@@ -94,7 +94,7 @@ async function generateContent() {
 function displayGeneratedContent(data) {
     const preview = document.getElementById('postPreview');
     const actions = document.querySelector('.preview-actions');
-    
+    console.log('Displaying generated content:', data); 
     
     const previewPlatform = data.platforms && data.platforms.length > 0 ? data.platforms[0] : 'instagram';
     
@@ -133,9 +133,9 @@ function createPostPreview(data, platform) {
             class: 'twitter-preview'
         }
     };
-    
+
     const config = platformConfigs[platform] || platformConfigs.instagram;
-    
+
     return `
         <div class="social-preview ${config.class}">
             <div class="post-header">
@@ -146,6 +146,7 @@ function createPostPreview(data, platform) {
                 </div>
             </div>
             <div class="post-content">
+                ${data.image_url ? `<img src="${data.image_url}" alt="Generated Image" style="max-width: 100%; border-radius: 10px; margin-bottom: 10px;" />` : ''}
                 <div class="post-text">${data.caption}</div>
                 <div class="post-hashtags">${data.hashtags}</div>
             </div>
@@ -157,6 +158,7 @@ function createPostPreview(data, platform) {
         </div>
     `;
 }
+
 
 function clearForm() {
     document.getElementById('themeInput').value = '';

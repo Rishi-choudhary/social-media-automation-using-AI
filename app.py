@@ -3,6 +3,8 @@ import jwt
 import uuid
 from functools import wraps
 from urllib.parse import urlencode
+import requests
+import hashlib
 import re
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, g
 from flask_sqlalchemy import SQLAlchemy
@@ -18,6 +20,8 @@ from werkzeug.local import LocalProxy
 import google.generativeai as genai
 import requests
 import json
+
+
 
 class Base(DeclarativeBase):
     pass
@@ -108,25 +112,20 @@ def generate_content_with_ai(theme, tone, platforms, context="", length="medium"
         
         platform_text = ", ".join(platforms)
         
-        prompt = f"""
-        Create engaging social media content for {platform_text} with the following specifications:
-        - Theme/Topic: {theme}
-        - Tone: {tone}
-        - Length: {length}
-        - Additional context: {context}
-        
-        Please provide:
-        1. A compelling caption suitable for the platforms
-        2. Relevant hashtags (5-10 hashtags)
-        3. A brief image description for AI image generation
-        
-        Format your response as JSON:
-        {{
-            "caption": "your caption here",
-            "hashtags": "#hashtag1 #hashtag2 #hashtag3",
-            "image_prompt": "description for image generation"
-        }}
-        """
+        prompt = f"""You are a social media content generator. Create high-performing content for {platform_text} using the following inputs:
+
+- Theme/Topic: {theme}
+- Tone: {tone} (e.g., inspiring, informative, playful, bold)
+- Desired Length: {length} (e.g., short <50 words, medium 100–150 words, long >200 words)
+- Additional Context: {context} (include target audience, purpose, brand voice, etc.)
+
+Please return your response in the following **JSON format**:
+
+{{
+  "caption": "Write a scroll-stopping caption tailored to the platform, aligned with the given tone and length. Start with a hook if possible and end with a CTA.",
+  "hashtags": "#trending #relevant #themeRelated (Provide 5–10 hashtags that are platform-appropriate and aligned with the theme)",
+  "image_prompt": "Generate a short, vivid description (max 60 words) for AI image generation, visually representing the theme."
+}}"""
         
         model = genai.GenerativeModel('gemini-2.5-flash')
         response = model.generate_content(prompt)
@@ -135,19 +134,14 @@ def generate_content_with_ai(theme, tone, platforms, context="", length="medium"
         
        
         try:
-        # Remove code fences (```json ... ```)
+        
             cleaned_text = re.sub(r"^```json|```$", "", response.text.strip(), flags=re.MULTILINE).strip()
             content = json.loads(cleaned_text)
             print("Parsed content:", content)
             return content
 
         except json.JSONDecodeError:
-<<<<<<< HEAD
-            
-=======
-           
-        # If JSON parsing fails, extract content manually
->>>>>>> 5efcdb2 (adding gemini key)
+
             text = response.text
             print(f"Failed to parse JSON response: {text}")
             return {
@@ -167,13 +161,8 @@ def generate_content_with_ai(theme, tone, platforms, context="", length="medium"
 def generate_image_with_ai(prompt):
     """Generate image using AI image generation service"""
     try:
-        
-        huggingface_key = os.environ.get('HUGGINGFACE_API_KEY')
-        stability_key = os.environ.get('STABILITY_API_KEY')
-        
-        if huggingface_key:
-            return generate_image_huggingface(prompt, huggingface_key)
-        elif stability_key:
+        stability_key = "YOUR_STABILITY_API_KEY"  # Replace with your actual Stability API key
+        if stability_key:
             return generate_image_stability(prompt, stability_key)
         else:
             return None
@@ -182,41 +171,46 @@ def generate_image_with_ai(prompt):
         print(f"Image generation error: {e}")
         return None
 
-def generate_image_huggingface(prompt, api_key):
-    """Generate image using Hugging Face API"""
-    API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-    headers = {"Authorization": f"Bearer {api_key}"}
-    
-    response = requests.post(API_URL, headers=headers, json={"inputs": prompt})
-    
-    if response.status_code == 200:
-        
-        return f"https://generated-image-url.com/{hash(prompt)}.jpg"
-    return None
+
+
+def sanitize_filename(text, max_length=20):
+    # Create a safe, short filename from the prompt
+    text = re.sub(r'\W+', '_', text.strip().lower())  # Replace non-alphanum with underscores
+    return text[:max_length] or "image"
+
+static_folder = os.path.join(app.root_path, 'static', 'generated_images')
+os.makedirs(static_folder, exist_ok=True)
+
 
 def generate_image_stability(prompt, api_key):
-    """Generate image using Stability AI API"""
-    url = "https://api.stability.ai/v1/generation/stable-diffusion-xl-1024-v1-0/text-to-image"
+    """Generate image using Stability AI v2beta API"""
+    url = "https://api.stability.ai/v2beta/stable-image/generate/ultra"
     headers = {
-        "Accept": "application/json",
-        "Authorization": f"Bearer {api_key}"
+        "Authorization": f"Bearer {api_key}",
+        "Accept": "image/*"
     }
-    
-    body = {
-        "text_prompts": [{"text": prompt}],
-        "cfg_scale": 7,
-        "height": 1024,
-        "width": 1024,
-        "steps": 30
+    data = {
+        "prompt": prompt,
+        "output_format": "webp",
     }
-    
-    response = requests.post(url, headers=headers, json=body)
-    
-    if response.status_code == 200:
-        
-        return f"https://generated-image-url.com/{hash(prompt)}.jpg"
-    return None
 
+    response = requests.post(url, headers=headers, files={"none": ''}, data=data)
+
+    if response.status_code == 200:
+        filename = sanitize_filename(prompt) + f"-{uuid.uuid4().hex[:6]}.webp"  # unique name
+        static_folder = os.path.join(app.root_path, 'static', 'generated_images')
+        os.makedirs(static_folder, exist_ok=True)
+        file_path = os.path.join(static_folder, filename)
+
+        with open(file_path, 'wb') as file:
+            file.write(response.content)
+
+        # Return relative URL for use in frontend
+        return url_for('static', filename=f'generated_images/{filename}')
+    else:
+        raise Exception(f"Image generation failed: {response.status_code} - {response.text}")
+    
+    
 @app.route('/')
 def index():
     return render_template('index.html')
