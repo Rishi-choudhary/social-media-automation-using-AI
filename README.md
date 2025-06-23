@@ -30,8 +30,8 @@ To run this app, you need:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/Rishi-choudhary/social-media-automation-using-AI.git
+cd social_media_automation_using_ai
 
 2. Install Dependencies
 
